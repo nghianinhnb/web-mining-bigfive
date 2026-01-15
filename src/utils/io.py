@@ -1,4 +1,5 @@
 import logging
+import pickle
 from pathlib import Path
 import pandas as pd
 
@@ -13,12 +14,33 @@ def setup_logging(name: str = __name__, level: int = logging.INFO) -> logging.Lo
 
 
 def load_parquet(path: Path) -> pd.DataFrame:
-    return pd.read_parquet(path)
+    """Load DataFrame from parquet or pickle format."""
+    # Try pickle first (extension .pkl or .parquet with pickle fallback)
+    pkl_path = path.with_suffix(".pkl")
+    if pkl_path.exists():
+        with open(pkl_path, "rb") as f:
+            return pickle.load(f)
+    # Fallback to parquet if available
+    if path.exists():
+        try:
+            return pd.read_parquet(path)
+        except ImportError:
+            # Try pickle version
+            if pkl_path.exists():
+                with open(pkl_path, "rb") as f:
+                    return pickle.load(f)
+            raise
+    raise FileNotFoundError(f"Neither {path} nor {pkl_path} found")
 
 
 def save_parquet(df: pd.DataFrame, path: Path) -> None:
+    """Save DataFrame to pickle format (parquet fallback if pyarrow available)."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(path, index=False)
+    # Use pickle for reliability
+    pkl_path = path.with_suffix(".pkl")
+    with open(pkl_path, "wb") as f:
+        pickle.dump(df, f)
+    print(f"Saved data to {pkl_path}")
 
 
 def load_splits(splits_dir: Path) -> dict:

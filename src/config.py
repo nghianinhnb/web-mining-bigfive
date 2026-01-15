@@ -21,9 +21,14 @@ SEED = 42
 TRAIT_NAMES = ["open", "conscientious", "extroverted", "agreeable", "stable"]
 TRAIT_COLS = [f"y_{t}" for t in TRAIT_NAMES]
 
+# Languages
+LANGUAGES = ["en", "es", "it", "nl"]
+
+# Models
 SENTIMENT_MODEL = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 EMOTION_MODEL = "cardiffnlp/twitter-roberta-base-emotion"
 ENCODER_MODEL = "cardiffnlp/twitter-roberta-base"
+MULTILINGUAL_ENCODER_MODEL = "xlm-roberta-base"  # or "cardiffnlp/twitter-xlm-roberta-base"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 CHROMA_DIR = PROCESSED_DIR / "chroma_db"
