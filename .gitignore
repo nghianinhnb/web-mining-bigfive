@@ -30,7 +30,7 @@ data/splits/
 *.pkl
 *.zip
 
-models/
+/models/
 *.pt
 *.pth
 *.bin

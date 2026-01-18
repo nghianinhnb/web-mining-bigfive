@@ -62,15 +62,18 @@ class BM25Index:
                 f,
             )
 
-    def load(self, path: Optional[Path] = None) -> "BM25Index":
+    @classmethod
+    def load(cls, path: Optional[Path] = None) -> "BM25Index":
         if path is None:
             path = BM25_INDEX_PATH
         with open(path, "rb") as f:
             data = pickle.load(f)
-        self.corpus = data["corpus"]
-        self.doc_mapping = data["doc_mapping"]
-        self.bm25 = BM25Okapi(self.corpus)
-        return self
+        
+        instance = cls()
+        instance.corpus = data["corpus"]
+        instance.doc_mapping = data["doc_mapping"]
+        instance.bm25 = BM25Okapi(instance.corpus)
+        return instance
 
 
 def build_tweet_index(df, max_tweets_per_user: int = 200) -> BM25Index:
