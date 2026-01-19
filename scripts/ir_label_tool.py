@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import pandas as pd
 
-from src.config import PROCESSED_DIR, RESULTS_DIR, EVIDENCE_PATH
+from src.config import LABELS_DIR, RESULTS_DIR, EVIDENCE_PATH
 from src.utils.io import setup_logging, load_parquet
 from src.ir.ir_eval import create_ir_labels_template, evaluate_ir
 
@@ -57,7 +57,7 @@ def main():
 
     logger = setup_logging("ir_label_tool")
 
-    labels_path = PROCESSED_DIR / "ir_labels.csv"
+    labels_path = LABELS_DIR / "ir_labels.csv"
 
     if args.mode == "create":
         logger.info("Loading evidence data...")

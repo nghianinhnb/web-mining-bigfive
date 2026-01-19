@@ -5,6 +5,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 RAW_DIR = DATA_DIR / "raw"
 PROCESSED_DIR = DATA_DIR / "processed"
 SPLITS_DIR = DATA_DIR / "splits"
+LABELS_DIR = DATA_DIR / "labels"
 RESULTS_DIR = PROJECT_ROOT / "results"
 MODELS_DIR = PROJECT_ROOT / "models"
 
@@ -38,6 +39,6 @@ EVIDENCE_PATH = PROCESSED_DIR / "evidence_topk.parquet"
 TOP_K_EVIDENCE = 5
 TOP_K_RECS = 10
 
-for d in [DATA_DIR, RAW_DIR, PROCESSED_DIR, SPLITS_DIR, RESULTS_DIR, MODELS_DIR]:
+for d in [DATA_DIR, RAW_DIR, PROCESSED_DIR, SPLITS_DIR, LABELS_DIR, RESULTS_DIR, MODELS_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
